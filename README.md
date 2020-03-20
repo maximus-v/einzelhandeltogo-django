@@ -1,5 +1,30 @@
 # einzelhandeltogo
 
+## Model Draft
+
+`Driver`
+
+* Name
+* Phone Number
+* GPS Position
+* Status {available, unavailable, idle}
+
+`Buyer`
+
+* Name
+* Phone Number
+* Address
+* Mail Address (for billing)
+
+`Seller`
+
+* Name
+* Company Name
+* Phone Number
+* Address
+* Shop Category
+* Product Categories (offered)
+
 ## Brainstorming Results
 
 Technologie-Stack

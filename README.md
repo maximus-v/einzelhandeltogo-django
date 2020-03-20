@@ -61,9 +61,13 @@ First time setup
 * configure user `etg` with password `etg`
 * create database named `etg`
 * in project directory create virtual environment `Windows: python -m venv venv`
+* one time migration at the beginning `python manage.py migrate`
+* create superuser `python manage.py createsuperuser`
 
 For running project
 * activate virtual environment `Windows: .\venv\Scripts\activate`
 * install requirements `Windows: pip install -r requirements.txt`
 * run migrations `python manage.py migrate`
 * run server `python manage.py runserver`
+* find service @ 127.0.0.1:8000
+* find admin interface @ 127.0.0.1:8000/admin

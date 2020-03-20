@@ -5,10 +5,10 @@ from shop import views
 
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'seller', views.SellerViewSet)
-router.register(r'buyer', views.BuyerViewSet)
-router.register(r'driver', views.DriverViewSet)
+router.register(r'users', views.UserViewSet, basename='users')
+router.register(r'sellers', views.SellerViewSet, basename='sellers')
+router.register(r'buyers', views.BuyerViewSet, basename='buyers')
+router.register(r'drivers', views.DriverViewSet, basename='drivers')
 
 urlpatterns = [
     path('', include(router.urls)),

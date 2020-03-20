@@ -27,3 +27,18 @@ Features
 * Optional: Abwicklung Kaufprozess
 
 *Source: https://yourpart.eu/p/wirvscorona*
+
+## How to run the project
+
+First time setup
+* install Python 3
+* install pgAdmin 4
+* configure user `etg` with password `etg`
+* create database named `etg`
+* in project directory create virtual environment `Windows: python -m venv venv`
+
+For running project
+* activate virtual environment `Windows: .\venv\Scripts\activate`
+* install requirements `Windows: pip install -r requirements.txt`
+* run migrations `python manage.py migrate`
+* run server `python manage.py runserver`

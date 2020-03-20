@@ -25,3 +25,5 @@ Features
   * Foto, Barcode, ...
   * Kontaktlose Bestätigung (via bluetooth) durch Käufer
 * Optional: Abwicklung Kaufprozess
+
+*Source: https://yourpart.eu/p/wirvscorona*

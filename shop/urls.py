@@ -17,6 +17,7 @@ router.register(r'categories', views.ShopCategoryViewSet, basename='categories')
 router.register(r'addresses', views.AddressViewSet, basename='addresses')
 router.register(r'products', views.ProductViewSet, basename='products')
 router.register(r'locations', views.LocationViewSet, basename='locations')
+router.register(r'transactions', views.TransactionViewSet, basename='transactions')
 
 
 schema_view = get_schema_view(

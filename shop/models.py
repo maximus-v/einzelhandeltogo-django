@@ -11,7 +11,25 @@ class Address(models.Model):
     code = models.TextField()
 
 class Category(models.Model):
-    name = models.CharField(max_length=300)
+    CATEGORY_CHOICES = [
+    ('0', 'Sonstiges'),
+    ('1', 'Lebensmittel'),
+    ('2', 'Getränke'),
+    ('3', 'Kleidung'),
+    ('4', 'Schuhe'),
+    ('5', 'Drogerie'),
+    ('6', 'Optiker'),
+    ('7', 'Haushaltswaren'),
+    ('8', 'Elektronikwaren'),
+    ('9', 'Outdoor & Sport'),
+    ('10', 'Kunst & Musik'),
+    ('11', 'Schreibwaren'),
+    ('12', 'Geschenke'),
+    ('13', 'Wäscherei'),
+    ('14', 'Tabakwaren'),
+    ('15', 'Spielzeugwaren'),
+    ]
+    categories = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
 
 class Location(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)

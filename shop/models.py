@@ -30,6 +30,7 @@ class Category(models.Model):
     ('15', 'Spielzeugwaren'),
     ]
     categories = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
+    icon = models.ImageField()
 
 class Location(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
@@ -72,8 +73,7 @@ class Seller(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=300)
-    # TODO: extract category to own model
-    shop_category = models.OneToOneField(Category, on_delete=models.CASCADE)
+    shop_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # TODO: extract products (maybe rather offered_services) to own model
     products = models.CharField(max_length=600)
     phonenumber = models.CharField(max_length=20)

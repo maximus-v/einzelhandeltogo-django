@@ -27,7 +27,6 @@ class CreateUserView(CreateAPIView):
     model = User
     permission_classes = [permissions.AllowAny]
     serializer_class = UserSerializer
-    authentication_classes = [TokenAuthentication]
 
 
 class UserViewSet(viewsets.ModelViewSet):

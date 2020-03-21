@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
@@ -10,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
+        print("Method called")
         user = User.objects.create(
             username=validated_data['username']
         )
@@ -42,6 +42,10 @@ class DriverSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        pass
+
     class Meta:
         model = Transaction
         fields = '__all__'

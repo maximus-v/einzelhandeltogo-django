@@ -1,7 +1,11 @@
+from math import radians
+
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from shop.models import Seller, Buyer, Driver, Transaction, Address, Product, Location
+
+from geopy import distance
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -66,7 +70,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             buyer=validated_data['buyer']
         )
 
-        transaction.driver = get_closest_driver()
+        transaction.driver = get_closest_driver(validated_data['seller'])
         transaction.save()
 
         return transaction
@@ -94,6 +98,18 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-def get_closest_driver():
+def get_closest_driver(seller):
     # TODO this method should return the nearest available driver
-    return Driver.objects.first()
+    # get list of all available drivers
+    driver_list = Driver.objects.filter(status__exact="A")
+    # calculate distance between driver and seller and select shortest distance
+    shortest_distance = 200000
+    designated_driver = None
+    for driver in driver_list:
+        driver_position = (driver.gps_position.latitude, driver.gps_position.longitude)
+        seller_position = (seller.gps_position.latitude, seller.gps_position.longitude)
+        dist = distance.distance(driver_position, seller_position).km
+        if dist < shortest_distance:
+            shortest_distance = dist
+            designated_driver = driver
+    return designated_driver

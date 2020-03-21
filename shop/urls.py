@@ -13,7 +13,6 @@ router.register(r'users', views.UserViewSet, basename='users')
 router.register(r'sellers', views.SellerViewSet, basename='sellers')
 router.register(r'buyers', views.BuyerViewSet, basename='buyers')
 router.register(r'drivers', views.DriverViewSet, basename='drivers')
-router.register(r'categories', views.ShopCategoryViewSet, basename='categories')
 router.register(r'addresses', views.AddressViewSet, basename='addresses')
 router.register(r'products', views.ProductViewSet, basename='products')
 router.register(r'locations', views.LocationViewSet, basename='locations')
@@ -32,6 +31,9 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    path('driver/<int:driver_id>/transactions', views.driver_transactions),
+    path('seller/<int:seller_id>/transactions', views.seller_transactions),
+    path('buyer/<int:buyer_id>/transactions', views.buyer_transactions),
     path('', include(router.urls)),
     path('register/', views.CreateUserView.as_view()),
     path('profile/<int:user_id>/', views.profile_list),

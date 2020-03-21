@@ -3,23 +3,18 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions, status
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, get_object_or_404
 from rest_framework.response import Response
 
-from shop.models import Seller, Buyer, Driver, Category, Address, Product, Location, Transaction
+from shop.models import Seller, Buyer, Driver, Address, Product, Location, Transaction
 from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, DriverSerializer, \
-    ShopCategorySerializer, AddressSerializer, ProductSerializer, LocationSerializer, TransactionSerializer, \
-    UserProfileSerializer
+    AddressSerializer, ProductSerializer, LocationSerializer, TransactionSerializer
 
 
 # Following views / endpoints must be implemented
-# TODO GET profiles of user
 # TODO GET list of driver's transactions
 # TODO GET list of buyer's transactions
 # TODO GET list of seller's transactions
-# TODO GET location of driver
-# TODO GET address of buyer
-# TODO GET address of seller
 
 
 class CreateUserView(CreateAPIView):
@@ -30,7 +25,8 @@ class CreateUserView(CreateAPIView):
 
 @api_view(['GET'])
 def profile_list(request, user_id):
-    user = User.objects.get(pk=user_id)
+    user = get_object_or_404(User, pk=user_id)
+
     response_data = dict()
     if hasattr(user, 'seller'):
         response_data["seller"] = SellerSerializer(user.seller).data
@@ -44,6 +40,33 @@ def profile_list(request, user_id):
         response_data["driver"] = DriverSerializer(user.driver).data
     else:
         response_data["driver"] = {}
+    return Response(response_data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def driver_transactions(request, driver_id):
+    driver = get_object_or_404(Driver, pk=driver_id)
+    transactions = driver.transaction_set.all()
+    response_data = dict()
+    response_data["transactions"] = TransactionSerializer(transactions, many=True).data
+    return Response(response_data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def seller_transactions(request, seller_id):
+    seller = get_object_or_404(Seller, pk=seller_id)
+    transactions = seller.transaction_set.all()
+    response_data = dict()
+    response_data["transactions"] = TransactionSerializer(transactions, many=True).data
+    return Response(response_data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def buyer_transactions(request, buyer_id):
+    buyer = get_object_or_404(Buyer, pk=buyer_id)
+    transactions = buyer.transaction_set.all()
+    response_data = dict()
+    response_data["transactions"] = TransactionSerializer(transactions, many=True).data
     return Response(response_data, status=status.HTTP_200_OK)
 
 
@@ -71,13 +94,6 @@ class BuyerViewSet(viewsets.ModelViewSet):
 class DriverViewSet(viewsets.ModelViewSet):
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
-
-
-class ShopCategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = ShopCategorySerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 

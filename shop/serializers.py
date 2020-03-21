@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from shop.models import Seller, Buyer, Driver, Transaction, Category, Address, Product, Location
+from shop.models import Seller, Buyer, Driver, Transaction, Address, Product, Location
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -73,12 +73,6 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
-        fields = '__all__'
-
-
-class ShopCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
         fields = '__all__'
 
 

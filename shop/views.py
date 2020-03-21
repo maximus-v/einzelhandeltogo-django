@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import viewsets, permissions
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.generics import CreateAPIView
 
 from shop.models import Seller, Buyer, Driver
 from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, DriverSerializer
@@ -17,6 +18,12 @@ from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, 
 # TODO UPDATE existing transaction
 # TODO DELETE transaction
 # TODO POST login with credentials
+
+
+class CreateUserView(CreateAPIView):
+    model = User
+    permission_classes = [permissions.AllowAny]
+    serializer_class = UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

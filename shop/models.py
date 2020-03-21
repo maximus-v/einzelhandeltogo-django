@@ -75,7 +75,7 @@ class Seller(models.Model):
     company_name = models.CharField(max_length=300)
     shop_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # TODO: extract products (maybe rather offered_services) to own model
-    products = models.CharField(max_length=600)
+    products = models.TextField()
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
     email = models.EmailField(max_length=254)

@@ -4,26 +4,36 @@
 
 `Driver`
 
-* Name
+* User {name, email, ...}
 * Phone Number
-* GPS Position
+* GPS Position {longitude, latitude}
 * Status {available, unavailable, idle}
 
 `Buyer`
 
-* Name
+* User {name, email, ...}
 * Phone Number
 * Address
-* Mail Address (for billing)
+* Postal Address {street, city, province, code}
 
 `Seller`
 
-* Name
+* User {name, email, ...}
 * Company Name
 * Phone Number
-* Address
-* Shop Category
-* Product Categories (offered)
+* Postal Address {street, city, province, code}
+* Shop Categories {names, icons}
+* Products
+* Status (open, closed, idle)
+
+`Transaction`
+* Created [timestamp]
+* Loaded
+* Delivered
+* Driver
+* Buyer
+* Seller
+* Transaction Content
 
 ## Brainstorming Results
 

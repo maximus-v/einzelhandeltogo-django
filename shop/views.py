@@ -1,15 +1,16 @@
 from django.contrib.auth.models import User
 
 from rest_framework import viewsets, permissions
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.generics import CreateAPIView
 
-from shop.models import Seller, Buyer, Driver
-from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, DriverSerializer
+from shop.models import Seller, Buyer, Driver, Category, Address, Product, Location
+from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, DriverSerializer, \
+    ShopCategorySerializer, AddressSerializer, ProductSerializer, LocationSerializer
 
 
 # Following views / endpoints must be implemented
-# TODO POST register as user
+# TODO GET profiles of user
 # TODO GET list of driver's transactions
 # TODO GET list of buyer's transactions
 # TODO GET list of seller's transactions
@@ -17,7 +18,6 @@ from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, 
 # TODO POST new transaction
 # TODO UPDATE existing transaction
 # TODO DELETE transaction
-# TODO POST login with credentials
 
 
 class CreateUserView(CreateAPIView):
@@ -44,7 +44,7 @@ class BuyerViewSet(viewsets.ModelViewSet):
     queryset = Buyer.objects.all()
     serializer_class = BuyerSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication, BasicAuthentication]
 
 
 class DriverViewSet(viewsets.ModelViewSet):
@@ -53,3 +53,30 @@ class DriverViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
+
+class ShopCategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = ShopCategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+
+class AddressViewSet(viewsets.ModelViewSet):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]

@@ -13,6 +13,10 @@ router.register(r'users', views.UserViewSet, basename='users')
 router.register(r'sellers', views.SellerViewSet, basename='sellers')
 router.register(r'buyers', views.BuyerViewSet, basename='buyers')
 router.register(r'drivers', views.DriverViewSet, basename='drivers')
+router.register(r'categories', views.ShopCategoryViewSet, basename='categories')
+router.register(r'addresses', views.AddressViewSet, basename='addresses')
+router.register(r'products', views.ProductViewSet, basename='products')
+router.register(r'locations', views.LocationViewSet, basename='locations')
 
 
 schema_view = get_schema_view(

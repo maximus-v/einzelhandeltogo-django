@@ -2,6 +2,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+
 # HELPER
 
 class Address(models.Model):
@@ -10,31 +11,34 @@ class Address(models.Model):
     province = models.TextField()
     code = models.TextField()
 
+
 class Category(models.Model):
     CATEGORY_CHOICES = [
-    ('0', 'Sonstiges'),
-    ('1', 'Lebensmittel'),
-    ('2', 'Getränke'),
-    ('3', 'Kleidung'),
-    ('4', 'Schuhe'),
-    ('5', 'Drogerie'),
-    ('6', 'Optiker'),
-    ('7', 'Haushaltswaren'),
-    ('8', 'Elektronikwaren'),
-    ('9', 'Outdoor & Sport'),
-    ('10', 'Kunst & Musik'),
-    ('11', 'Schreibwaren'),
-    ('12', 'Geschenke'),
-    ('13', 'Wäscherei'),
-    ('14', 'Tabakwaren'),
-    ('15', 'Spielzeugwaren'),
+        ('0', 'Sonstiges'),
+        ('1', 'Lebensmittel'),
+        ('2', 'Getränke'),
+        ('3', 'Kleidung'),
+        ('4', 'Schuhe'),
+        ('5', 'Drogerie'),
+        ('6', 'Optiker'),
+        ('7', 'Haushaltswaren'),
+        ('8', 'Elektronikwaren'),
+        ('9', 'Outdoor & Sport'),
+        ('10', 'Kunst & Musik'),
+        ('11', 'Schreibwaren'),
+        ('12', 'Geschenke'),
+        ('13', 'Wäscherei'),
+        ('14', 'Tabakwaren'),
+        ('15', 'Spielzeugwaren'),
     ]
     categories = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
     icon = models.ImageField()
 
+
 class Location(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latidude = models.DecimalField(max_digits=9, decimal_places=6)
+
 
 # MAIN ENTITIES
 
@@ -52,6 +56,7 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.user.username
+
 
 class Buyer(models.Model):
 
@@ -73,14 +78,17 @@ class Seller(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=300)
     shop_category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    # TODO: extract products (maybe rather offered_services) to own model
-    products = models.TextField()
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
     status = models.CharField(max_length=1, choices=STATUS)
 
     def __str__(self):
         return self.company_name
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
 
 class Transaction(models.Model):

@@ -81,3 +81,4 @@ For running project
 * run server `python manage.py runserver`
 * find service @ 127.0.0.1:8000
 * find admin interface @ 127.0.0.1:8000/admin
+* find endpoint description @ 127.0.0.1:8000/swagger

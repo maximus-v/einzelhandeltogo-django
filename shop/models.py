@@ -58,7 +58,6 @@ class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
-    email = models.EmailField(max_length=254)
 
     def __str__(self):
         return self.user.username
@@ -78,7 +77,6 @@ class Seller(models.Model):
     products = models.TextField()
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
-    email = models.EmailField(max_length=254)
     status = models.CharField(max_length=1, choices=STATUS)
 
     def __str__(self):

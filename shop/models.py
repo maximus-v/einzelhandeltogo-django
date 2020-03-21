@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 class Address(models.Model):
     street = models.TextField()
     city = models.TextField()
-    province = models.TextField()
-    code = models.TextField()
+    province = models.TextField(blank=True, null=True)
+    code = models.TextField(blank=True, null=True)
 
 
 class Location(models.Model):
@@ -66,7 +66,7 @@ class Seller(models.Model):
         ('8', 'Elektronikwaren'),
         ('9', 'Outdoor & Sport'),
         ('10', 'Kunst & Musik'),
-        ('11', 'Schreibwaren'),
+        ('11', 'Bcher & Schreibwaren'),
         ('12', 'Geschenke'),
         ('13', 'Wäscherei'),
         ('14', 'Tabakwaren'),

@@ -11,12 +11,6 @@ from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, 
     AddressSerializer, ProductSerializer, LocationSerializer, TransactionSerializer
 
 
-# Following views / endpoints must be implemented
-# TODO GET list of driver's transactions
-# TODO GET list of buyer's transactions
-# TODO GET list of seller's transactions
-
-
 class CreateUserView(CreateAPIView):
     model = User
     permission_classes = [permissions.AllowAny]

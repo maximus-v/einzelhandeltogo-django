@@ -1,9 +1,10 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from geopy import Nominatim
 
+from pygeocoder import Geocoder
 
-# HELPER
 
 class Address(models.Model):
     street = models.TextField()
@@ -11,10 +12,19 @@ class Address(models.Model):
     province = models.TextField()
     code = models.TextField()
 
+    def __str__(self):
+        return "{}, {} {},{}".format(self.street, self.code, self.city, self.province)
+
+    def get_locatable_address(self):
+        return "{} {}".format(self.street, self.city)
+
 
 class Location(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
+
+    def __str__(self):
+        return "{}, {}".format(self.latitude, self.longitude)
 
 
 # MAIN ENTITIES
@@ -40,8 +50,13 @@ class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
-    # TODO calculate gps postion automatically based on address
-    gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, default=None, blank=True, null=True)
+    gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        geolocator = Nominatim(user_agent="einzelhandeltogo")
+        location = geolocator.geocode(self.address.get_locatable_address())
+        self.gps_position = Location.objects.create(longitude=location.longitude, latitude=location.latitude)
+        super(Buyer, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.user.username
@@ -78,9 +93,14 @@ class Seller(models.Model):
     shop_category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
-    # TODO calculate gps postion automatically based on address
-    gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, default=None, blank=True, null=True)
+    gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS)
+
+    def save(self, *args, **kwargs):
+        geolocator = Nominatim(user_agent="einzelhandeltogo")
+        location = geolocator.geocode(self.address.get_locatable_address())
+        self.gps_position = Location.objects.create(longitude=location.longitude, latitude=location.latitude)
+        super(Seller, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.company_name

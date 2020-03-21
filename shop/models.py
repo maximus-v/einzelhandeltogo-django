@@ -40,6 +40,7 @@ class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
+    # TODO calculate gps postion automatically based on address
     gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, default=None, blank=True, null=True)
 
     def __str__(self):
@@ -53,8 +54,6 @@ class Seller(models.Model):
         ('I', 'Idle'),
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company_name = models.CharField(max_length=300)
     CATEGORY_CHOICES = [
         ('0', 'Sonstiges'),
         ('1', 'Lebensmittel'),
@@ -73,9 +72,13 @@ class Seller(models.Model):
         ('14', 'Tabakwaren'),
         ('15', 'Spielzeugwaren'),
     ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=300)
     shop_category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
+    # TODO calculate gps postion automatically based on address
     gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, default=None, blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS)
 

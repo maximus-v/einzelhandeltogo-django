@@ -1,5 +1,6 @@
 Django~=2.2.11
 djangorestframework~=3.11.0
+django-cors-headers~=3.2.1
 drf-yasg~=1.17.1
 geopy~=1.21.0
 Markdown~=3.2.1

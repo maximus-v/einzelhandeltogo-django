@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from shop.models import Seller, Buyer, Driver
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,20 +12,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 class SellerSerializer(serializers.ModelSerializer):
     class Meta:
-        # model = Seller
-        model = User
-        fields = ['id', 'username', 'email', 'groups']
+        model = Seller
+        fields = '__all__'
 
 
 class BuyerSerializer(serializers.ModelSerializer):
     class Meta:
-        # model = Buyer
-        model = User
-        fields = ['id', 'username', 'email', 'groups']
+        model = Buyer
+        fields = '__all__'
 
 
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:
-        # model = Driver
-        model = User
-        fields = ['id', 'username', 'email', 'groups']
+        model = Driver
+        fields = '__all__'

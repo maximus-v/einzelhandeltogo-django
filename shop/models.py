@@ -63,6 +63,7 @@ class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
+    gps_position = models.ForeignKey('Location', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
@@ -80,6 +81,7 @@ class Seller(models.Model):
     shop_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
+    gps_position = models.ForeignKey('Location', on_delete=models.CASCADE)
     status = models.CharField(max_length=1, choices=STATUS)
 
     def __str__(self):

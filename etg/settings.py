@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

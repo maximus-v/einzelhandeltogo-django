@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'maxvorhauer$etg',
         'USER': 'maxvorhauer',
         'PASSWORD': 'etg-sql-pw',
-        'HOST': 'localhost',
+        'HOST': 'maxvorhauer.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }

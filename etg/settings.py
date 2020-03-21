@@ -78,22 +78,22 @@ WSGI_APPLICATION = 'etg.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'etg',
-    #     'USER': 'etg',
-    #     'PASSWORD': 'etg',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'maxvorhauer$etg',
-        'USER': 'maxvorhauer',
-        'PASSWORD': 'etg-sql-pw',
-        'HOST': 'maxvorhauer.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'etg',
+        'USER': 'etg',
+        'PASSWORD': 'etg',
+        'HOST': 'localhost',
+        'PORT': '',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'maxvorhauer$etg',
+    #     'USER': 'maxvorhauer',
+    #     'PASSWORD': 'etg-sql-pw',
+    #     'HOST': 'maxvorhauer.mysql.pythonanywhere-services.com',
+    #     'PORT': '3306',
+    # }
 }
 
 

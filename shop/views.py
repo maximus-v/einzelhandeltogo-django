@@ -7,21 +7,7 @@ from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, 
 
 
 # Following views / endpoints must be implemented
-# TODO GET list of buyers
-# TODO GET buyer details
-# TODO POST register as buyer
-# TODO UPDATE buyer profile
-# TODO DELETE buyer profile
-# TODO GET list of sellers
-# TODO GET seller details
-# TODO POST register as seller
-# TODO UPDATE seller profile
-# TODO DELETE seller profile
-# TODO GET list of drivers
-# TODO GET driver details
-# TODO POST register as driver
-# TODO UPDATE driver profile
-# TODO DELETE driver profile
+# TODO POST register as user
 # TODO GET list of driver's transactions
 # TODO GET list of buyer's transactions
 # TODO GET list of seller's transactions

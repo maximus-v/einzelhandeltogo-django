@@ -93,9 +93,9 @@ class Product(models.Model):
 
 class Transaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    loaded = models.DateTimeField()
-    delivered = models.DateTimeField()
-    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    loaded = models.DateTimeField(blank=True, null=True)
+    delivered = models.DateTimeField(blank=True, null=True)
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, blank=True, null=True)
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     transaction_content = models.CharField(max_length=600)

@@ -9,7 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
-        print("Method called")
         user = User.objects.create(
             username=validated_data['username']
         )
@@ -44,7 +43,16 @@ class DriverSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
-        pass
+        transaction = Transaction.objects.create(
+            transaction_content=validated_data['transaction_content'],
+            seller=validated_data['seller'],
+            buyer=validated_data['buyer']
+        )
+
+        transaction.driver = get_closest_driver()
+        transaction.save()
+
+        return transaction
 
     class Meta:
         model = Transaction
@@ -73,3 +81,8 @@ class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = '__all__'
+
+
+def get_closest_driver():
+    # TODO this method should return the nearest available driver
+    return Driver.objects.first()

@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from shop.models import Seller, Buyer, Driver, Transaction
+from shop.models import Seller, Buyer, Driver, Transaction, Location
 
 admin.site.register(Seller)
 admin.site.register(Buyer)
 admin.site.register(Driver)
 admin.site.register(Transaction)
+admin.site.register(Location)

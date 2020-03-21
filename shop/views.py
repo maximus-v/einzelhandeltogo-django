@@ -14,10 +14,7 @@ from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, 
 # TODO GET list of driver's transactions
 # TODO GET list of buyer's transactions
 # TODO GET list of seller's transactions
-# TODO GET transaction details
 # TODO POST new transaction
-# TODO UPDATE existing transaction
-# TODO DELETE transaction
 # TODO GET location of driver
 # TODO GET address of buyer
 # TODO GET address of seller

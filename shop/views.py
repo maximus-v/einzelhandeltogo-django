@@ -1,12 +1,15 @@
 from django.contrib.auth.models import User
 
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+from rest_framework.decorators import api_view
 from rest_framework.generics import CreateAPIView
+from rest_framework.response import Response
 
 from shop.models import Seller, Buyer, Driver, Category, Address, Product, Location, Transaction
 from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, DriverSerializer, \
-    ShopCategorySerializer, AddressSerializer, ProductSerializer, LocationSerializer, TransactionSerializer
+    ShopCategorySerializer, AddressSerializer, ProductSerializer, LocationSerializer, TransactionSerializer, \
+    UserProfileSerializer
 
 
 # Following views / endpoints must be implemented
@@ -14,7 +17,6 @@ from shop.serializers import UserSerializer, SellerSerializer, BuyerSerializer, 
 # TODO GET list of driver's transactions
 # TODO GET list of buyer's transactions
 # TODO GET list of seller's transactions
-# TODO POST new transaction
 # TODO GET location of driver
 # TODO GET address of buyer
 # TODO GET address of seller
@@ -24,6 +26,25 @@ class CreateUserView(CreateAPIView):
     model = User
     permission_classes = [permissions.AllowAny]
     serializer_class = UserSerializer
+
+
+@api_view(['GET'])
+def profile_list(request, user_id):
+    user = User.objects.get(pk=user_id)
+    response_data = dict()
+    if hasattr(user, 'seller'):
+        response_data["seller"] = SellerSerializer(user.seller).data
+    else:
+        response_data["seller"] = {}
+    if hasattr(user, 'buyer'):
+        response_data["buyer"] = BuyerSerializer(user.buyer).data
+    else:
+        response_data["buyer"] = {}
+    if hasattr(user, 'driver'):
+        response_data["driver"] = DriverSerializer(user.driver).data
+    else:
+        response_data["driver"] = {}
+    return Response(response_data, status=status.HTTP_200_OK)
 
 
 class UserViewSet(viewsets.ModelViewSet):

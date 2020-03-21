@@ -40,6 +40,23 @@ class DriverSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserProfileSerializer(serializers.Serializer):
+    seller = serializers.SerializerMethodField('get_seller')
+    # buyer = serializers.SerializerMethodField('get_buyer')
+    # driver = serializers.SerializerMethodField('get_driver')
+
+    def __init__(self, *args, **kwargs):
+        print("Init called")
+        context = kwargs.pop('context')
+        self.user_id = context.get('user_id')
+        print(self.user_id)
+        super(UserProfileSerializer, self).__init__(*args, **kwargs)
+
+    def get_seller(self, obj):
+        print("Get seller")
+        return SellerSerializer(Seller.objects.filter(user=self.user_id)).data
+
+
 class TransactionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):

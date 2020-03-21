@@ -3,14 +3,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from geopy import Nominatim
 
-from pygeocoder import Geocoder
 
+# HELPER
 
 class Address(models.Model):
     street = models.TextField()
     city = models.TextField()
-    province = models.TextField()
-    code = models.TextField()
+    province = models.TextField(blank=True, null=True)
+    code = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return "{}, {} {},{}".format(self.street, self.code, self.city, self.province)
@@ -81,7 +81,7 @@ class Seller(models.Model):
         ('8', 'Elektronikwaren'),
         ('9', 'Outdoor & Sport'),
         ('10', 'Kunst & Musik'),
-        ('11', 'Schreibwaren'),
+        ('11', 'Bücher & Schreibwaren'),
         ('12', 'Geschenke'),
         ('13', 'Wäscherei'),
         ('14', 'Tabakwaren'),
@@ -90,9 +90,10 @@ class Seller(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=300)
-    shop_category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
     phonenumber = models.CharField(max_length=20)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
+    shop_category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='0')
+    shop_image = models.ImageField(upload_to='img', null = True)
     gps_position = models.ForeignKey('Location', on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS)
 
